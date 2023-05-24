@@ -1,0 +1,98 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+
+
+local Window = Rayfield:CreateWindow({
+    Name = "Arm Wrestling Simulator",
+    LoadingTitle = "loading...",
+    LoadingSubtitle = "by Lui o lghd#0001",
+ })
+
+
+ local GetTab = Window:CreateTab("Stats Giver") 
+ local TpTab = Window:CreateTab("Teleports") 
+
+
+ local Section = GetTab:CreateSection("Stats Giver")
+
+ local Input = GetTab:CreateInput({
+    Name = "Biceps Giver",
+    PlaceholderText = "Max 100000000 (10b)",
+    RemoveTextAfterFocusLost = true,
+    Callback = function(Text)
+        local args = {
+            [1] = Text
+        }
+        
+        workspace.Main3.RemoteEvent:FireServer(unpack(args))
+    end,
+ })
+
+
+ local Input = GetTab:CreateInput({
+    Name = "Forarm Giver",
+    PlaceholderText = "Max 100000000 (10b)",
+    RemoveTextAfterFocusLost = true,
+    Callback = function(Text)
+        local args = {
+            [1] = Text
+        }
+        
+        workspace.Main.RemoteEvent:FireServer(unpack(args))
+    end,
+ })
+
+ local Input = GetTab:CreateInput({
+    Name = "Grip Giver",
+    PlaceholderText = "Max 100000000 (10b)",
+    RemoveTextAfterFocusLost = true,
+    Callback = function(Text)
+        local args = {
+            [1] = Text
+        }
+        
+        workspace.Main2.RemoteEvent:FireServer(unpack(args))
+    end,
+ })
+ local Label = GetTab:CreateLabel("If you got youself 10b then you can get up higher with the numbers")
+    local Label = GetTab:CreateLabel("Have fun Saitama")
+
+
+
+ local Section = TpTab:CreateSection("Teleports")
+
+ local Button = TpTab:CreateButton({
+    Name = "Spawn",
+    Callback = function()
+        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
+        tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(38.00695037841797, 3.444831609725952, -78.92425537109375)}):Play()
+    end,
+ })
+
+ local Button = TpTab:CreateButton({
+    Name = "Heaven",
+    Callback = function()
+        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
+        tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(617.642333984375, 563.144287109375, -98.18571472167969)}):Play()
+    end,
+ })
+
+
+ local Button = TpTab:CreateButton({
+    Name = "Hell",
+    Callback = function()
+        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
+        tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(181.2910614013672, 22.393447875976562, 643.1844482421875)}):Play()
+    end,
+ })
+
+
+
+ local Button = TpTab:CreateButton({
+    Name = "Galaxy",
+    Callback = function()
+        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
+        tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-708.037353515625, 3.1441125869750977, -102.1283950805664)}):Play()
+    end,
+ })
+
