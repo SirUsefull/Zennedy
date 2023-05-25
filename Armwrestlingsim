@@ -20,12 +20,16 @@ local Window = Rayfield:CreateWindow({
 
 
  local GetTab = Window:CreateTab("Stats Giver") 
+ local FarmTab = Window:CreateTab("Auto Farm") 
  local TpTab = Window:CreateTab("Teleports") 
+ local CreditsTab = Window:CreateTab("Credits") 
 
 
- local Section = GetTab:CreateSection("Stats Giver")
 
- local Input = GetTab:CreateInput({
+
+ local StatsGiverSection = GetTab:CreateSection("Stats Giver")
+
+ local BicepInput = GetTab:CreateInput({
     Name = "Biceps Giver",
     PlaceholderText = "Max 100000000 (10b)",
     RemoveTextAfterFocusLost = true,
@@ -39,7 +43,7 @@ local Window = Rayfield:CreateWindow({
  })
 
 
- local Input = GetTab:CreateInput({
+ local ForarmInput = GetTab:CreateInput({
     Name = "Forarm Giver",
     PlaceholderText = "Max 100000000 (10b)",
     RemoveTextAfterFocusLost = true,
@@ -52,7 +56,7 @@ local Window = Rayfield:CreateWindow({
     end,
  })
 
- local Input = GetTab:CreateInput({
+ local GripInput = GetTab:CreateInput({
     Name = "Grip Giver",
     PlaceholderText = "Max 100000000 (10b)",
     RemoveTextAfterFocusLost = true,
@@ -64,14 +68,69 @@ local Window = Rayfield:CreateWindow({
         workspace.Main2.RemoteEvent:FireServer(unpack(args))
     end,
  })
+
  local Label = GetTab:CreateLabel("If you got youself 10b then you can get up higher with the numbers")
     local Label = GetTab:CreateLabel("Have fun Saitama")
 
+    local FarmSec = FarmTab:CreateSection("Auto Farm")
+
+    local FarmBicepButton = FarmTab:CreateButton({
+        Name = "Farm Biceps",
+        Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+        Callback = function(Value)
+        
+
+                while wait(1) do
+                    local args = {
+                        [1] = 10000000000
+                    }
+                    
+                    workspace.Main3.RemoteEvent:FireServer(unpack(args))
+                end
+
+        
+        end,
+     })
+
+     local FarmGripButton = FarmTab:CreateButton({
+        Name = "Farm Grip",
+        Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+        Callback = function(Value)
+        
+
+                while wait(1) do
+                    local args = {
+                        [1] = 10000000000
+                    }
+                    
+                    workspace.Main2.RemoteEvent:FireServer(unpack(args))
+                end
+
+         
+        end,
+     })
 
 
- local Section = TpTab:CreateSection("Teleports")
+     local FarmForarmButton = FarmTab:CreateButton({
+        Name = "Farm Forarm",
+        Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+        Callback = function(Value)
+        
 
- local Button = TpTab:CreateButton({
+                while wait(1) do
+                    local args = {
+                        [1] = 10000000000
+                    }
+                    
+                    workspace.Main.RemoteEvent:FireServer(unpack(args))
+                end
+
+       
+        end,
+     })
+ local TpSection = TpTab:CreateSection("Teleports")
+
+ local TpSpawnButton = TpTab:CreateButton({
     Name = "Spawn",
     Callback = function()
         tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
@@ -79,7 +138,7 @@ local Window = Rayfield:CreateWindow({
     end,
  })
 
- local Button = TpTab:CreateButton({
+ local TpheavenButton = TpTab:CreateButton({
     Name = "Heaven",
     Callback = function()
         tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
@@ -88,7 +147,7 @@ local Window = Rayfield:CreateWindow({
  })
 
 
- local Button = TpTab:CreateButton({
+ local tphellButton = TpTab:CreateButton({
     Name = "Hell",
     Callback = function()
         tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
@@ -98,7 +157,7 @@ local Window = Rayfield:CreateWindow({
 
 
 
- local Button = TpTab:CreateButton({
+ local tpGalaxyButton = TpTab:CreateButton({
     Name = "Galaxy",
     Callback = function()
         tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(2, Enum.EasingStyle.Linear)
@@ -106,3 +165,6 @@ local Window = Rayfield:CreateWindow({
     end,
  })
 
+ local CreditsSec = CreditsTab:CreateSection("Credits")
+
+ local Label = CreditsTab:CreateLabel("Made by lui o lghd#0001 or @luighg on yt")
