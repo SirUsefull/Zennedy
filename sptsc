@@ -1,0 +1,145 @@
+
+
+---------------------------------------------------------
+
+
+--Checking if the player is in SPTSC
+
+
+        -----------------------------------------------
+
+    --Creating the Library
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+   
+    local colors = {
+        SchemeColor = Color3.fromRGB(255,63,63),
+        Background = Color3.fromRGB(41,41,41),
+        Header = Color3.fromRGB(41,41,41),
+        TextColor = Color3.fromRGB(255,255,255),
+        ElementColor = Color3.fromRGB(41,41,41)
+    }
+    
+    local Window = Library.CreateLib("Zennedy | SPTS:Custom", colors)
+
+
+    local NewsTab = Window:NewTab("Annoucements")
+    local PlayerTab = Window:NewTab("Player")
+    local TpTab = Window:NewTab("Teleports")
+    local CreditsTab = Window:NewTab("Credits")
+
+
+    local PlayerSection = PlayerTab:NewSection("Player")
+    local AnnSection = NewsTab:NewSection("Annoucements")
+    local TpSection = TpTab:NewSection("Fist Zones")
+    local CreditsSection = CreditsTab:NewSection("Credits")
+
+   
+
+        -----------------------------------------------------
+
+    --Ui toggle keybind
+    PlayerSection:NewKeybind("Change UI toggle", "KeybindInfo", Enum.KeyCode.M, function()
+        Library:ToggleUI()
+    end)
+    
+
+
+    --Speed/JumpPower Sliders
+    PlayerSection:NewSlider("WalkSpeed", "Change the WalkSpeed", 800, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+    end)
+    PlayerSection:NewSlider("JumpPower", "Change the JumpPower", 800, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+    end)
+
+    --A rejoin button cause its cooler then a command (no its not)
+    PlayerSection:NewButton("Rejoin", "", function()
+        TPS:TeleportToPlaceInstance(placeID, ServerID)
+    end)
+
+    --AntiAFK Button
+    PlayerSection:NewButton("AntiAFK", "", function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnTop/Rice-Anti-Afk/main/Wind", true))()
+    end)
+
+    --Getting VirtualInputManager for Auto Respawn
+    local vim = game:GetService('VirtualInputManager')
+    local function m1click() 
+        vim:SendMouseButtonEvent(958,511,0,true,game,0)
+        wait()
+        vim:SendMouseButtonEvent(958,511,0,false,game,0)
+    end
+   
+    --Set spawn for auto respawn button
+    PlayerSection:NewButton("Set Spawn", "", function()   
+        spawnPoint =  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    end)
+
+
+    --Auto respawn button
+    PlayerSection:NewButton("Auto Respawn", "", function()   
+        while wait (.1) do
+           
+            if  game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+               
+                wait(3.8)
+                m1click()
+                wait(4.2)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = spawnPoint
+            end
+        end
+       
+    end)
+
+    --Autojump button
+    PlayerSection:NewToggle("Auto Jump", "ToggleInfo", function(state)
+            on = state
+
+        if on == true then
+            while on == true do
+                wait(.1)
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+            end
+        else
+            on = false
+        end
+    end)
+
+    --Auto disable aura button
+    PlayerSection:NewToggle("Auto disable Aura", "ToggleInfo", function(state)
+        on = state
+
+    if on == true then
+        while on == true do
+            wait()
+     
+
+local args = {
+    [1] = false
+}
+
+game:GetService("ReplicatedStorage").Aura:FireServer(unpack(args))
+
+        end
+    else
+        on = false
+    end
+end)
+
+    --Stat viewer menu
+    PlayerSection:NewButton("Stat Viewer", "", function()
+        loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/blobblab/Scripts/main/STAT_CHECK_SPTSC_1.5_OBF.lua"))()
+    end)  
+
+
+
+
+
+
+
+
+
+
+
+
