@@ -423,6 +423,8 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
      
      
      local function SmoothFadeOut()
+        game:GetService("Players").LocalPlayer.PlayerGui.uiMain.gameTips.Visible = true
+
          local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
      
          -- Shadows Tweening
@@ -489,6 +491,8 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
      end
      
      local function SmoothFadeIn()
+        game:GetService("Players").LocalPlayer.PlayerGui.uiMain.gameTips.Visible = false
+
          local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
      
          -- Transparenz für jedes Element animieren
@@ -576,3 +580,4 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
              end
          end
      end)
+     game:GetService("Players").LocalPlayer.PlayerGui.uiMain.protected:Destroy()
