@@ -557,7 +557,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
      
      end
  
-     getgenv().Cards = getgenv().Cards or true 
+     getgenv().Cards = getgenv().Cards or false 
 
      task.spawn(function()
          local lastState = getgenv().Cards
