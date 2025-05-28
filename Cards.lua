@@ -1,10 +1,70 @@
-getgenv().Cards = false
 
 if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
     game.CoreGui:FindFirstChild("ZennedyCards"):Destroy()
  end
 
- local ZennedyCards = Instance.new("ScreenGui")
+
+getgenv().Cards = false
+
+local ZennedyCards = Instance.new("ScreenGui")
+
+
+local highestLevel = 0
+local highestRep = 0
+local userRepName = "" 
+local userLvlName = "" 
+
+function GetStats()
+    for i, v in ipairs(game:GetService("Players"):GetPlayers()) do
+      pcall(function()
+         if v.leaderstats.Level.Value > highestLevel then
+                highestLevel = v.leaderstats.Level.Value
+                userLvlName = v.DisplayName 
+         end
+
+         if v.leaderstats.Reputation.Value > highestRep then
+             highestRep = v.leaderstats.Reputation.Value
+             userRepName = v.DisplayName 
+         end
+
+       end)
+    end
+end
+
+function UpdateCardStats()
+    -- Update Highest Level
+    local ipText = ZennedyCards:FindFirstChild("IP"):FindFirstChild("IPText")
+    if ipText then
+        ipText.TextTransparency = 0
+        ipText.Text = userLvlName 
+
+        ipText.MouseEnter:Connect(function()
+            ipText.Text = tostring(highestLevel)
+        end)
+
+        ipText.MouseLeave:Connect(function()
+            ipText.Text = userLvlName
+        end)
+    end
+
+    -- Update Highest Reputation
+    local executorText = ZennedyCards:FindFirstChild("Executor") and ZennedyCards.Executor:FindFirstChild("ExecutorText")
+    if executorText then
+        executorText.TextTransparency = 0
+        executorText.Text = userRepName  
+
+        executorText.MouseEnter:Connect(function()
+            executorText.Text = tostring(highestRep)
+        end)
+
+        executorText.MouseLeave:Connect(function()
+            executorText.Text = userRepName
+        end)
+    end
+end
+
+GetStats()
+
  local Friends = Instance.new("Frame")
  local UICorner = Instance.new("UICorner")
  local Title = Instance.new("TextLabel")
@@ -146,7 +206,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
  Title_2.Size = UDim2.new(0.9, 0, 0.3, 0)
  Title_2.ZIndex = 10000
  Title_2.Font = Enum.Font.GothamBlack
- Title_2.Text = "FOV"
+ Title_2.Text = "Ping"
  Title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
  Title_2.TextScaled = true
  Title_2.TextSize = 14.000
@@ -218,7 +278,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
  Title_3.Size = UDim2.new(0.9, 0, 0.3, 0)
  Title_3.ZIndex = 10000
  Title_3.Font = Enum.Font.GothamBlack
- Title_3.Text = "Ping"
+ Title_3.Text = "Highest Level"
  Title_3.TextColor3 = Color3.fromRGB(255, 255, 255)
  Title_3.TextScaled = true
  Title_3.TextSize = 14.000
@@ -290,7 +350,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
  Title_4.Size = UDim2.new(0.9, 0, 0.3, 0)
  Title_4.ZIndex = 10000
  Title_4.Font = Enum.Font.GothamBlack
- Title_4.Text = "Executor"
+ Title_4.Text = "Highest Rep"
  Title_4.TextColor3 = Color3.fromRGB(255, 255, 255)
  Title_4.TextScaled = true
  Title_4.TextSize = 14.000
@@ -345,22 +405,24 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
  local cam = workspace.CurrentCamera
  
  task.defer(function ()
-     while wait() do
-         FovText.Text = string.format("%.0f", cam.FieldOfView)
-     end
- end)
- 
- task.defer(function ()
-     local RunService = game:GetService('RunService')
+        local RunService = game:GetService('RunService')
  
      while RunService.Heartbeat:Wait() do
-         IPText.Text = math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
+         FovText.Text = math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
      end
  end)
  
- task.defer(function ()
-     ExecutorText.Text = identifyexecutor()
- end)
+task.spawn(function()
+    while task.wait() do
+        highestLevel = 0
+        highestRep = 0
+        userLvlName = ""
+        userRepName = ""
+        GetStats()
+        UpdateCardStats()
+        task.wait(5) 
+    end
+end)
  
  task.defer(function ()
      local ConnectionCard = game:GetService('RunService').RenderStepped:Connect(function()
@@ -372,7 +434,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
              FrameCounter = 0;
          end;
          FriendsText.Text = math.floor(FPS)
-    
+
      end)
  end)
  
@@ -423,7 +485,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
      
      
      local function SmoothFadeOut()
-        game:GetService("Players").LocalPlayer.PlayerGui.uiMain.gameTips.Visible = true
+        
 
          local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
      
@@ -487,6 +549,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
      
      
          transparencyTween1.Completed:Wait()
+         game:GetService("Players").LocalPlayer.PlayerGui.uiMain.gameTips.Visible = true
          -- Warten, bis die Animation abgeschlossen ist
      end
      
@@ -557,7 +620,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
      
      end
  
-     getgenv().Cards = getgenv().Cards or false 
+     getgenv().Cards = getgenv().Cards or true 
 
      task.spawn(function()
          local lastState = getgenv().Cards
@@ -580,4 +643,8 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
              end
          end
      end)
-     game:GetService("Players").LocalPlayer.PlayerGui.uiMain.protected:Destroy()
+
+
+     if game:GetService("Players").LocalPlayer.PlayerGui.uiMain:FindFirstChild("protected") then
+         game:GetService("Players").LocalPlayer.PlayerGui.uiMain.protected:Destroy()
+     end
