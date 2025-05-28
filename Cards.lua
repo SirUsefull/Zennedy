@@ -4,7 +4,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
  end
 
 
-getgenv().Cards = true
+getgenv().Cards = false
 
 local ZennedyCards = Instance.new("ScreenGui")
 
