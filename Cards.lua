@@ -4,7 +4,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
  end
 
 
-getgenv().Cards = false
+getgenv().Cards = true
 
 local ZennedyCards = Instance.new("ScreenGui")
 
@@ -413,7 +413,7 @@ GetStats()
  end)
  
 task.spawn(function()
-    while task.wait() do
+    while getgenv().Cards do
         highestLevel = 0
         highestRep = 0
         userLvlName = ""
