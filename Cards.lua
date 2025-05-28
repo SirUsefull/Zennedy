@@ -4,7 +4,7 @@ if game.CoreGui:FindFirstChild("ZennedyCards") ~= nil then
  end
 
 
-getgenv().Cards = false
+getgenv().Cards = true
 
 local ZennedyCards = Instance.new("ScreenGui")
 
@@ -618,9 +618,7 @@ end)
      
          transparencyTween1.Completed:Wait()
      
-     end
- 
-     getgenv().Cards = getgenv().Cards or true 
+     end 
 
      task.spawn(function()
          local lastState = getgenv().Cards
